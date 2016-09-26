@@ -31,12 +31,12 @@ FN_TYPE_WEIGHTED_MAX = 12
 
 
 class AGG_File:
-
+    TAG = "#AGG"
     def __init__(self, filename):
         self.filename = filename
         self.data = open(filename, "r").read()
-        if self.data[:5] != "#AGG\n":
-            print "WARNING: File does not have the #AGG tag: " + filename
+        if self.data[:len(self.TAG)+1] != "%s\n" % self.TAG:
+            print "WARNING: File does not have the %s tag: %s" % (self.TAG, filename)
         self._loadDetails()
         del self.data  # No need to keep that information hanging around
         # These will be popen streams
@@ -172,7 +172,8 @@ class AGG_File:
 
 
 class BAGG_File(AGG_File):
-
+    TAG = "#BAGG"
+    
     """
     >>> import AGG_Examples
     >>> bagg = AGG_Examples.MixedValueChicken()
@@ -431,7 +432,7 @@ class AGG(AGG_File):
         Nodes = self.A + self.F
         self.filename = filename
         file = open(filename, 'w')
-        file.write("#AGG\n")
+        file.write("%s\n" % self.TAG)
         ''' the first thing we have is a null-terminated string that is the title'''
         if self.title:
             file.write("# %s\n\n" % (self.title))

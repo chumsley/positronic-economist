@@ -10,5 +10,5 @@ setup(
     author='David R. M. Thompson',
     author_email='daveth@cs.ubc.ca',
     url='https://github.com/davidrmthompson/positronic-economist',
-    packages=['posec']
+    packages=['posec', 'posec.applications']
 )
